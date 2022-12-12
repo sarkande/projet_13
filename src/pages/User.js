@@ -1,11 +1,35 @@
+import { useSelector, useDispatch } from "react-redux";
+import { userProfile } from "../actions";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+
 function User() {
-   return (
+   const logged = useSelector((state) => state.signin);
+   const dispatch = useDispatch();
+   const navigate = useNavigate();
+
+   const user = useSelector((state) => state.userProfile);
+
+   if (!user.error)
+      if (user._id === null) {
+         dispatch(userProfile(logged.token));
+      }
+
+   useEffect(() => {
+      if (user.error) navigate("/signout");
+      else if (!logged.logged) {
+         navigate("/signin");
+      }
+   }, [logged.logged, navigate, user.error, dispatch]);
+   return !logged.logged ? (
+      <p>Disconnected</p>
+   ) : (
       <main className="main bg-dark">
          <div className="header">
             <h1>
                Welcome back
                <br />
-               Tony Jarvis!
+               {user._firstName} {user._lastName}!
             </h1>
             <button className="edit-button">Edit Name</button>
          </div>

@@ -2,8 +2,21 @@ import icon_chat from "../assets/img/icon-chat.png";
 import icon_money from "../assets/img/icon-money.png";
 import icon_security from "../assets/img/icon-security.png";
 
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
+import { useEffect } from "react";
+
 function Home() {
-   return (
+   const logged = useSelector((state) => state.signin);
+   const navigate = useNavigate();
+
+   useEffect(() => {
+      if (logged.logged) {
+         navigate("/user");
+      }
+   }, [navigate, logged]);
+   return !logged.logged ? (
       <main>
          <div className="hero">
             <section className="hero-content">
@@ -50,6 +63,8 @@ function Home() {
             </div>
          </section>
       </main>
+   ) : (
+      <p>You are already connected, redirection in coming !</p>
    );
 }
 

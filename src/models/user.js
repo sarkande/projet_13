@@ -22,9 +22,8 @@ class User {
    constructor() {
       this._token = null;
 
-      this.__id = null;
+      this._id = null;
       this._email = null;
-      this._password = null;
       this._firstName = null;
       this._lastName = null;
       this._createdAt = null;
@@ -37,7 +36,6 @@ class User {
       await UserAPI.getUser({ email: mail, password: pass })
          .then((response) => {
             if (response.status === 200) {
-               console.log(response.data);
                this._logged = true;
                this._token = response.data.body.token;
                // ->create User and pass it to redux
@@ -53,29 +51,16 @@ class User {
    }
 
    async getProfile() {
-      await UserAPI.getProfile(this._token)
-         .then((response) => {
-            if (response.status === 200) {
-               console.log(response.data);
-               console.log(response.data.body);
-
-               this.__id = response.data.body._id;
-               this._email = response.data.body.email;
-               this._password = response.data.body.password;
-               this._firstName = response.data.body.firstname;
-               this._lastName = response.data.body.lastname;
-               this._createdAt = response.data.body.createdAt;
-               this._updatedAt = response.data.body.updatedAt;
-
-               // ->create User and pass it to redux
-               // ->code error to redux
-            } else {
-               // ->code error to redux
-            }
-         })
-         .catch((error) => {
-            // ->code error to redux
-         });
+      await UserAPI.getProfile(this._token).then((response) => {
+         if (response.status === 200) {
+            this._id = response.data.body.id;
+            this._email = response.data.body.email;
+            this._firstName = response.data.body.firstName;
+            this._lastName = response.data.body.lastName;
+            this._createdAt = response.data.body.createdAt;
+            this._updatedAt = response.data.body.updatedAt;
+         }
+      });
    }
 
    async updateProfile(firstName, lastName) {
@@ -96,6 +81,14 @@ class User {
 
    isLogged() {
       return this._logged;
+   }
+
+   setToken(token) {
+      this._token = token;
+      this._logged =
+         this._token !== null && this._token !== undefined && this._token !== ""
+            ? true
+            : false;
    }
 }
 

@@ -4,8 +4,6 @@ import { useNavigate } from "react-router-dom";
 
 import { signin } from "../actions";
 
-import User from "../models/user";
-
 function SignIn() {
    const inputLogin = useRef(null);
    const inputPassword = useRef(null);
@@ -13,63 +11,60 @@ function SignIn() {
 
    const dispatch = useDispatch();
 
-   const [error, setError] = useState(false);
-
    const logged = useSelector((state) => state.signin);
-   console.log("logged: ", logged);
+
+   const [checkbox, setCheckbox] = useState(false);
 
    function handleSubmit(e) {
       e.preventDefault();
-      console.log("submit");
-      console.log(inputLogin.current.value);
-      console.log();
-
-      dispatch(signin(inputLogin.current.value, inputPassword.current.value));
-      // let user = new User();
-      // user
-      //    .login(inputLogin.current.value, inputPassword.current.value)
-      //    .then(() => {
-      //       console.log(user.isLogged());
-      //       if (user.isLogged()) {
-      //          setError(false);
-      //          sessionStorage.setItem("token", user._token);
-      //          sessionStorage.setItem("logged", user._logged);
-
-      //          user.getProfile(user._token).then(() => {
-      //             sessionStorage.setItem("user", JSON.stringify(user));
-      //             navigate("/user");
-      //          });
-      //          //navigate("/user");
-      //       } else {
-      //          console.log("not logged");
-      //          setError(true);
-      //       }
-      //    });
+      dispatch(
+         signin(inputLogin.current.value, inputPassword.current.value, checkbox)
+      );
+   }
+   function handleChange(e) {
+      setCheckbox(e.target.checked);
    }
    useEffect(() => {
       if (logged.logged) {
          navigate("/user");
       }
-   }, [logged.logged, navigate]);
-   return (
+   }, [navigate, logged, checkbox]);
+
+   return logged.logged ? (
+      <p>already logged</p>
+   ) : (
       <main className="main bg-dark">
          <section className="sign-in-content">
             <i className="fa fa-user-circle sign-in-icon"></i>
-            <h1>Sign In {logged.toString()}</h1>
+            <h1>Sign In</h1>
             {logged.error ? (
                <p className="error-login">Erreur de connexion</p>
             ) : null}
             <form>
                <div className="input-wrapper">
                   <label htmlFor="username">Username</label>
-                  <input type="text" id="username" ref={inputLogin} />
+                  <input
+                     type="text"
+                     id="username"
+                     ref={inputLogin}
+                     autoComplete="username"
+                  />
                </div>
                <div className="input-wrapper">
                   <label htmlFor="password">Password</label>
-                  <input type="password" id="password" ref={inputPassword} />
+                  <input
+                     type="password"
+                     id="password"
+                     ref={inputPassword}
+                     autoComplete="current-password"
+                  />
                </div>
                <div className="input-remember">
-                  <input type="checkbox" id="remember-me" />
+                  <input
+                     type="checkbox"
+                     id="remember-me"
+                     onChange={handleChange}
+                  />
                   <label htmlFor="remember-me">Remember me</label>
                </div>
                <button className="sign-in-button" onClick={handleSubmit}>

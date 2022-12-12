@@ -12,11 +12,27 @@ import Footer from "./components/Footer";
 import Header from "./components/Header";
 import SignIn from "./pages/SignIn";
 import User from "./pages/User";
+import SignOut from "./pages/SignOut";
 
-const logged = store.getState().signin.logged;
+import { eraseCookie, getCookie } from "./utils/cookie";
 
-console.log("logged: ", logged);
-console.log(typeof logged);
+if (getCookie("logged") === "true" && getCookie("token") !== "") {
+   sessionStorage.setItem("logged", getCookie("logged"));
+   sessionStorage.setItem("token", getCookie("token"));
+} else {
+   eraseCookie("logged");
+   eraseCookie("token");
+}
+
+if (sessionStorage.getItem("logged") === "true") {
+   store.dispatch({
+      type: "SIGNIN",
+      error: false,
+      logged: true,
+      token: sessionStorage.getItem("token"),
+   });
+}
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
    //<React.StrictMode>
@@ -24,15 +40,10 @@ root.render(
       <Router>
          <Header />
          <Routes>
-            <Route path="/" element={logged === false ? <Home /> : <User />} />
-            <Route
-               path="/signin"
-               element={logged === false ? <SignIn /> : <User />}
-            />
-            <Route
-               path="/user"
-               element={logged === true ? <User /> : <Home />}
-            />
+            <Route path="/" element={<Home />} />
+            <Route path="/signin" element={<SignIn />} />
+            <Route path="/user" element={<User />} />
+            <Route path="/signout" element={<SignOut />} />
             <Route path="*" element={<h1>404: Not Found</h1>} />
          </Routes>
          <Footer />
