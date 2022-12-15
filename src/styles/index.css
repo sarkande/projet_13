@@ -254,6 +254,28 @@ body {
   font-size: 1.2rem;
 }
 
+.edit-window {
+  border: solid 2px black;
+  background-color: white;
+  width: 250px;
+  padding: 10px;
+  display: block;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -170px; /* Negative half of height. */
+  margin-left: -125px; /* Negative half of width. */
+}
+.edit-window-header h2 {
+  margin: 0;
+}
+.edit-window-form-group {
+  padding: 5px;
+}
+.edit-window-form-group button {
+  margin: 5px;
+}
+
 .sign-in-button {
   display: block;
   width: 100%;

@@ -21,7 +21,6 @@ const signinReducer = (state = SIGNIN_STATE_DEFAULT, action) => {
          };
       case "SIGNOUT":
          return {
-            ...state,
             error: false,
             token: null,
             logged: false,

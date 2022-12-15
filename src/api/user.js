@@ -52,7 +52,7 @@ class UserAPI {
             baseURL: process.env.REACT_APP_BASE_URL + "/user",
             headers: { Authorization: "Bearer " + token },
          })
-         .put("/profile", { firstname: firstName, lastname: lastName });
+         .put("/profile", { firstName: firstName, lastName: lastName });
    }
 }
 

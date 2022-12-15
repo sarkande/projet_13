@@ -27,6 +27,7 @@ export const signout = () => async (dispatch) => {
    sessionStorage.removeItem("logged");
    sessionStorage.removeItem("token");
    dispatch({ type: "SIGNOUT" });
+   dispatch({ type: "USER_SIGNOUT" });
 };
 
 export const userProfile = (token) => async (dispatch) => {
@@ -72,3 +73,28 @@ export const userProfile = (token) => async (dispatch) => {
          });
       });
 };
+
+export const updateUserProfile =
+   (token, firstName, lastName) => async (dispatch) => {
+      let user = new User();
+      user.setToken(token);
+      user
+         .updateProfile(firstName, lastName)
+         .then(() => {
+            //dispatch
+            dispatch({
+               type: "USER_UPDATE_PROFILE",
+               firstName: user._firstName,
+               lastName: user._lastName,
+               error: false,
+            });
+         })
+         .catch((error) => {
+            dispatch({
+               type: "USER_UPDATE_PROFILE",
+               firstName: null,
+               lastName: null,
+               error: true,
+            });
+         });
+   };

@@ -64,10 +64,12 @@ class User {
    }
 
    async updateProfile(firstName, lastName) {
-      await UserAPI.getProfile(this._token, firstName, lastName)
+      await UserAPI.updateProfile(this._token, firstName, lastName)
          .then((response) => {
             if (response.status === 200) {
                console.log(response.data);
+               this._firstName = response.data.body.firstName;
+               this._lastName = response.data.body.lastName;
                // ->create User and pass it to redux
                // ->code error to redux
             } else {
