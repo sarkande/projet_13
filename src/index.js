@@ -11,7 +11,7 @@ import Home from "./pages/Home";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import SignIn from "./pages/SignIn";
-import User from "./pages/User";
+import Profile from "./pages/Profile";
 import SignOut from "./pages/SignOut";
 
 import { eraseCookie, getCookie } from "./utils/cookie";
@@ -41,8 +41,8 @@ root.render(
          <Header />
          <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/signin" element={<SignIn />} />
-            <Route path="/user" element={<User />} />
+            <Route path="/login" element={<SignIn />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path="/signout" element={<SignOut />} />
             <Route path="*" element={<h1>404: Not Found</h1>} />
          </Routes>

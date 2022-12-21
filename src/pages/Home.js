@@ -13,7 +13,7 @@ function Home() {
 
    useEffect(() => {
       if (logged.logged) {
-         navigate("/user");
+         navigate("/profile");
       }
    }, [navigate, logged]);
    return !logged.logged ? (

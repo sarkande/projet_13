@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import EditWindow from "../components/EditWindow";
 
-function User() {
+function Profile() {
    const [editWindow, setEditWindow] = useState(false);
 
    const logged = useSelector((state) => state.signin);
@@ -92,4 +92,4 @@ function User() {
    );
 }
 
-export default User;
+export default Profile;

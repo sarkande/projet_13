@@ -26,7 +26,7 @@ function SignIn() {
    }
    useEffect(() => {
       if (logged.logged) {
-         navigate("/user");
+         navigate("/profile");
       }
    }, [navigate, logged, checkbox]);
 
