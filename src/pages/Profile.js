@@ -25,7 +25,7 @@ function Profile() {
    useEffect(() => {
       if (user.error) navigate("/signout");
       else if (!logged.logged) {
-         navigate("/signin");
+         navigate("/login");
       }
    }, [logged.logged, navigate, user.error, dispatch]);
 
