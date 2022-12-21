@@ -37,7 +37,11 @@ function User() {
             <h1>
                Welcome back
                <br />
-               {user._firstName} {user._lastName}!
+               {!editWindow ? (
+                  <span>
+                     {user._firstName} {user._lastName}!
+                  </span>
+               ) : null}
             </h1>
             <button className="edit-button" onClick={handleClickEditButton}>
                Edit Name

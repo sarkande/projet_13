@@ -1,24 +1,39 @@
 .edit-window {
-   border: solid 2px black;
-   background-color: white;
-   width: 250px;
+   width: 500px;
    padding: 10px;
    display: block;
-   position: fixed;
-   top: 50%;
-   left: 50%;
-   margin-top: -170px; /* Negative half of height. */
-   margin-left: calc(-250px / 2); /* Negative half of width. */
+   margin: auto;
+   padding-bottom: 25px;
 
-   &-header {
-      & h2 {
-         margin: 0;
-      }
+   &-form-input {
+      margin-right: 5px;
+      width: 150px;
+      height: 30px;
+      border-radius: 5px;
+      border: #b8c4ce solid 2px;
    }
    &-form-group {
       padding: 5px;
       & button {
          margin: 5px;
       }
+   }
+}
+
+.button-edit {
+   width: 150px;
+   height: 30px;
+
+   margin: 5px;
+
+   font-weight: bold;
+   border-radius: 5px;
+   background-color: #fff;
+   color: #6458f5;
+   border: #6458f5 solid 2px;
+   &:hover {
+      background-color: #6458f5;
+      border: #6458f5 solid 2px;
+      color: #fff;
    }
 }
