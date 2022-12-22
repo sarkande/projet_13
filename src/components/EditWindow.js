@@ -9,10 +9,15 @@ export default function EditWindow({ handleClick }) {
 
    function handleSave(e) {
       e.preventDefault();
-      const firstName = document.getElementById("firstName").value;
-      const lastName = document.getElementById("lastName").value;
+      let firstName = document.getElementById("firstName").value;
+      let lastName = document.getElementById("lastName").value;
       console.log(_firstName, _lastName);
-      dispatch(updateUserProfile(logged.token, firstName, lastName));
+      if (firstName === "") firstName = _firstName;
+      if (lastName === "") lastName = _lastName;
+
+      dispatch(
+         updateUserProfile(logged.token, firstName.trim(), lastName.trim())
+      );
       handleClick();
    }
 
@@ -25,6 +30,7 @@ export default function EditWindow({ handleClick }) {
                   type="text"
                   id="firstName"
                   placeholder={_firstName}
+                  required={true}
                />
 
                <input
@@ -32,6 +38,7 @@ export default function EditWindow({ handleClick }) {
                   type="text"
                   id="lastName"
                   placeholder={_lastName}
+                  required={true}
                />
 
                <div className="edit-window-form-group">
